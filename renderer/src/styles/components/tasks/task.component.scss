@@ -1,0 +1,62 @@
+.task {
+	border-radius: rem(16);
+	padding: rem(16) rem(24);
+	background-color: $color-gray-200;
+	@include space-y(24);
+	position: relative;
+}
+
+.task-header {
+	display: flex;
+	@include space-x(24);
+}
+
+.task-checkbox {
+	border-radius: rem(8);
+	background-color: $color-gray-300;
+	border: 1px solid $color-gray-400;
+	height: rem(32);
+	width: rem(32);
+	display: inline-block;
+	flex: none;
+}
+
+.task-content {
+	@include space-y(8);
+}
+
+.task-title {
+	font-weight: 600;
+}
+
+.task-description {
+}
+
+.task-move {
+	@include flex-center;
+	padding: rem(8);
+	height: rem(32);
+	width: rem(32);
+	border-radius: rem(8);
+	background-color: $color-gray-100;
+	color: $color-gray-500;
+}
+
+.task hr {
+	opacity: 0.3;
+}
+
+.task-footer {
+	@include flex-between;
+}
+
+.task-badges {
+	@include space-x(8);
+	display: flex;
+}
+
+.task-timer {
+	color: $color-gray-500;
+	font-weight: 500;
+	@include text-sm;
+}

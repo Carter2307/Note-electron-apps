@@ -1,0 +1,35 @@
+.menu {
+	@include space-y(16);
+}
+
+.menu-list-label {
+	@include text-xs;
+	text-transform: uppercase;
+	color: $color-gray-400;
+	font-weight: 500;
+	padding-left: rem(16);
+}
+
+.menu-list {
+}
+
+.menu-list-item {
+	display: inline-flex;
+	align-items: center;
+	@include space-x(8);
+	@include text-sm;
+	width: 100%;
+	color: $color-gray-300;
+	border-radius: rem(4);
+	padding: rem(8) rem(16);
+
+	&:hover,
+	&.active {
+		background-color: $color-gray-800;
+		color: $color-white;
+	}
+
+	&-icon {
+		@include text-base;
+	}
+}

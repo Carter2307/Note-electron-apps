@@ -1,0 +1,58 @@
+//reset
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	height: 100%;
+	scroll-behavior: smooth;
+}
+
+body {
+	font-family: $font-inter;
+	scroll-behavior: smooth;
+	overflow-x: hidden;
+	font-size: $base-font;
+	@include text-base;
+	background-color: $color-gray-100;
+	color: $color-black;
+	scroll-behavior: smooth;
+	@extend %cover;
+	position: relative;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+
+	//   &::after {
+	//     content: '';
+	//     position: fixed;
+	//     height: 100%;
+	//     width: 100%;
+	//     display: inline-block;
+	//     background: url('images/body-background.png');
+	//     background-repeat: no-repeat;
+	//     background-size: cover;
+	//     z-index: -1;
+	//   }
+}
+
+::-webkit-scrollbar {
+	display: none;
+}
+
+#app {
+	//@include container;
+	display: inline-flex;
+	height: 100%;
+	width: 100%;
+}
+
+//debugging
+/*   *{
+    //border: 1px solid red!important;
+ }
+ */

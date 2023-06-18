@@ -1,0 +1,28 @@
+.sidebar {
+	background-color: $color-black;
+	color: $color-white;
+	max-width: rem(200);
+	min-width: rem(200);
+	height: 100vh;
+	padding: rem(16);
+	position: relative;
+}
+
+.sidebar-toggler {
+	background: none;
+	border: none;
+	outline: none;
+	color: $color-gray-300;
+	@include text-xl;
+	position: absolute;
+	top: rem(8);
+	right: rem(16);
+	@include button-hover-handler-white;
+}
+
+.sidebar-menu {
+	margin-top: rem(48);
+	border-bottom: 1px solid $color-gray-700;
+	padding-bottom: rem(32);
+	@include prevent-select;
+}

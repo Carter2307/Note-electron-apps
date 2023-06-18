@@ -1,0 +1,8 @@
+.task-badge {
+	border-radius: rem(9999);
+	background-color: $color-black;
+	padding: rem(8) rem(16);
+	@include text-xs;
+	color: $color-white;
+	font-weight: 500;
+}

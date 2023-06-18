@@ -1,0 +1,29 @@
+.task-actions {
+	position: absolute;
+	right: rem(-24);
+	top: 50%;
+	transform: translate(100%, -50%);
+	display: flex;
+	flex-direction: column;
+	border-radius: rem(9999);
+	border: rem(2) solid $color-gray-200;
+	background-color: $color-gray-100;
+	margin-top: 0 !important;
+}
+
+.task-action {
+	border: none;
+	background: none;
+	padding: rem(8);
+	@include text-xl;
+	color: $color-gray-300;
+	cursor: pointer;
+	transition: color 0.4s;
+
+	&:hover {
+		color: $color-gray-600;
+	}
+	&:not(:last-child) {
+		border-bottom: 1px solid $color-gray-200;
+	}
+}

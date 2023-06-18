@@ -1,0 +1,81 @@
+.page-list {
+	width: 100%;
+	position: relative;
+	padding-top: rem(32);
+	will-change: transform;
+
+	&::after,
+	&::before {
+		content: "";
+		position: fixed;
+		height: rem(48 + 32);
+		right: 2px;
+		left: 0;
+		z-index: z("fancy-blur");
+		//border: 1px solid red;
+	}
+
+	&::after {
+		bottom: 0;
+		background: linear-gradient(rgba($color: $color-gray-100, $alpha: 0.2), $color-gray-100 50%);
+	}
+	&::before {
+		top: rem(32);
+		background: linear-gradient($color-gray-100 50%, rgba($color: $color-gray-100, $alpha: 0.2));
+	}
+}
+
+.page-list-container {
+	padding-top: rem(60);
+	height: 90vh;
+	overflow: scroll;
+}
+
+.page-list-content {
+	flex-grow: 2;
+}
+
+.page-list-content-item {
+	padding: rem(16) rem(24);
+	border-right: 2px solid transparent;
+	@include space-y(8);
+
+	&-content {
+		@include flex-between;
+	}
+
+	&-title {
+		@include text-lg;
+		font-weight: 700;
+	}
+
+	&-date {
+		@include text-xs;
+		font-weight: 500;
+		color: $color-gray-300;
+	}
+
+	&-description {
+		@include text-sm;
+		color: $color-gray-500;
+	}
+
+	&-active,
+	&:hover {
+		background-color: $color-white;
+		border-right-color: $color-gray-900;
+	}
+}
+
+.page-list-cta {
+	position: absolute;
+	bottom: 0;
+	padding: rem(24);
+	width: 100%;
+	z-index: z("list-button");
+	.button {
+		width: 100%;
+	}
+	// background-color: rgba($color: $color-gray-100, $alpha: 0.9);
+	// backdrop-filter: blur(10px);
+}

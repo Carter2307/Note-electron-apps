@@ -1,0 +1,16 @@
+.button {
+	padding: rem(8) rem(24);
+	border-radius: rem(6);
+	@include flex-center;
+	outline: none;
+	border: none;
+	background-color: none;
+}
+
+.button-primary {
+	background-color: $color-gray-900;
+	color: $color-white;
+}
+
+.button-md {
+}

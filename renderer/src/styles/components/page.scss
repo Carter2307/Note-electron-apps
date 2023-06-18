@@ -1,0 +1,15 @@
+.page {
+	display: grid;
+	grid-template-columns: rem($list-width) 1fr;
+	width: 100%;
+}
+
+.page-document {
+	margin-top: rem(32);
+	margin-right: rem(32);
+	display: inline-block;
+	background-color: $color-white;
+	border-top-left-radius: rem(4);
+	border-top-right-radius: rem(4);
+	box-shadow: 0px 2px 4px rgba($color: $color-black, $alpha: 0.1);
+}

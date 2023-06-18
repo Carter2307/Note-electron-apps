@@ -1,0 +1,16 @@
+@mixin prevent-select {
+	-webkit-user-select: none; /* Safari */
+	-ms-user-select: none; /* IE 10 and IE 11 */
+	user-select: none; /* Standard syntax */
+}
+
+@mixin button-hover-handler-white {
+	padding: rem(4) rem(8);
+	border-radius: rem(8);
+	@include flex-center;
+
+	&:hover {
+		background-color: $color-gray-800;
+		color: $color-gray-100;
+	}
+}
