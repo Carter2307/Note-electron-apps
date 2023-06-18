@@ -7,8 +7,8 @@ import Documents from "../documents/Documents";
 export default class List extends Components {
 	element: HTMLDivElement;
 	datas: TaskDocument[];
-	type: string;
-	constructor(type: string, datas: any) {
+	type: DocType;
+	constructor(type: DocType, datas: any) {
 		super();
 		this.datas = datas;
 		this.type = type;

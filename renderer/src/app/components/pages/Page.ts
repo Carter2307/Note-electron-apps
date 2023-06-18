@@ -3,11 +3,11 @@ import Documents from "../organisims/documents/Documents";
 import List from "../organisims/list/List";
 
 export class Page extends Components {
-	type: string;
+	type: DocType;
 	list: List | any;
 	element: HTMLDivElement;
 
-	constructor(type: string) {
+	constructor(type: DocType) {
 		super();
 		this.type = type;
 		this.element = this.createPageElement();

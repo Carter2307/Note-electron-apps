@@ -1,11 +1,11 @@
 import { TasksDocument } from "../documents/TaskDocument";
 
 export default class Documents {
-	static openDocument(id: string, type: string, datas: TaskDocument[]) {
+	static openDocument(id: string, type: DocType, datas: TaskDocument[]) {
 		const documentData: TaskDocument = this.getDocument(id, datas);
 		switch (type) {
 			case "tasksDocuments":
-				const doc = new TasksDocument(documentData.id, documentData.title, documentData.description, documentData.tasks);
+				new TasksDocument(documentData.id, documentData.title, documentData.description, documentData.tasks);
 		}
 	}
 

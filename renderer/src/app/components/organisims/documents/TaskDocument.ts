@@ -7,11 +7,11 @@ export class TasksDocument extends Components {
 	title: string;
 	description: string;
 	date: number;
-	tasks: Task[];
+	tasks: Tasks;
 	list: HTMLUListElement;
 	element: HTMLDivElement;
 
-	constructor(id: string, title: string, description: string, tasks: Task[]) {
+	constructor(id: string, title: string, description: string, tasks: Tasks) {
 		super();
 		this.id = id;
 		this.title = title;
