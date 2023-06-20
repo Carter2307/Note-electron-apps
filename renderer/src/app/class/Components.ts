@@ -1,6 +1,9 @@
-export default class Components {
-	constructor() {}
+import { DataTransporter } from "../services/DataTransporter.service";
 
+export default class Components extends DataTransporter {
+	constructor() {
+		super();
+	}
 	createElement<T>(type: string, options: object): T {
 		return <T>Object.assign(document.createElement(`${type}`), {
 			...options,

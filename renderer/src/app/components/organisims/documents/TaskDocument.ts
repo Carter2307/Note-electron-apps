@@ -1,23 +1,30 @@
-import Components from "../../../class/Components";
 import { Task } from "../../molecules/Task";
 import Text from "../../atoms/Text";
+import TaskDocumentActions from "./TaskDocumentActions";
+import { DocumentHandler } from "./DocumentHandler";
 
-export class TasksDocument extends Components {
+export class TasksDocument extends DocumentHandler {
 	id: string;
 	title: string;
 	description: string;
 	date: number;
 	tasks: Tasks;
 	list: HTMLUListElement;
+	documentDatas: TaskDocument;
 	element: HTMLDivElement;
+	badges: Badge[];
+	createAt: number;
 
-	constructor(id: string, title: string, description: string, tasks: Tasks) {
+	constructor(documentDatas: TaskDocument) {
 		super();
-		this.id = id;
-		this.title = title;
-		this.description = description;
+		this.id = documentDatas.id;
+		this.title = documentDatas.title;
+		this.description = documentDatas.description;
 		this.date = Date.now();
-		this.tasks = tasks;
+		this.tasks = documentDatas.tasks;
+		this.badges = documentDatas.badges;
+		this.createAt = documentDatas.createAt;
+		this.documentDatas = documentDatas;
 		this.list = this.createElement<HTMLUListElement>("ul", {});
 		this.element = this.uiHandler();
 		this.render();
@@ -36,6 +43,14 @@ export class TasksDocument extends Components {
 			id: "task-document",
 		});
 
+		const container = this.createElement<HTMLDivElement>("div", {
+			className: "task-document-container",
+		});
+
+		const containerContent = this.createElement<HTMLDivElement>("div", {
+			className: "task-document-container-content",
+		});
+
 		const content = this.createElement<HTMLDivElement>("div", {
 			className: "task-document-content",
 		});
@@ -47,6 +62,7 @@ export class TasksDocument extends Components {
 		const title = new Text({ value: this.title, type: "h3", className: "task-document-title" }).ELEMENT;
 		const description = new Text({ value: this.description, type: "p", className: "task-document-description" }).ELEMENT;
 		const dateAdd = new Text({ value: String(this.date), type: "p", className: "task-document-dateAdded" }).ELEMENT;
+		const taskAction = new TaskDocumentActions(this);
 
 		this.appendChild(contenttext, [title, dateAdd]);
 		this.appendChild(content, [contenttext, description]);
@@ -60,7 +76,10 @@ export class TasksDocument extends Components {
 			this.addTask(task.title, task.description, task.badges);
 		});
 
-		this.appendChild(root, [content, this.list]);
+		this.appendChild(containerContent, [content, this.list]);
+		this.appendChild(container, [containerContent]);
+
+		this.appendChild(root, [container, taskAction.element]);
 
 		return root;
 	}

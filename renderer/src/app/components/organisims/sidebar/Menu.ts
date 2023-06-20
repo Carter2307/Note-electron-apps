@@ -21,7 +21,7 @@ export class Menu extends Components {
 
 		menu.items.forEach((item) => {
 			items.push(new MenuItems(item, cb).element);
-			async function cb(type: string) {
+			async function cb(type: DocType) {
 				if (type === "settings") {
 					//settings modal handler
 					console.log("setting handler");

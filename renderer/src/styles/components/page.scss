@@ -12,4 +12,5 @@
 	border-top-left-radius: rem(4);
 	border-top-right-radius: rem(4);
 	box-shadow: 0px 2px 4px rgba($color: $color-black, $alpha: 0.1);
+	height: calc(100vh - 32px);
 }

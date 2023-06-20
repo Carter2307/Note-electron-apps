@@ -1,10 +1,27 @@
 .button {
-	padding: rem(8) rem(24);
 	border-radius: rem(6);
 	@include flex-center;
 	outline: none;
 	border: none;
 	background-color: none;
+
+	&-icon {
+		border-radius: rem(9999);
+		@include flex-center;
+		aspect-ratio: 1/1;
+
+		&-md {
+			padding: rem(12);
+			@include text-2xl;
+			width: rem(64);
+		}
+
+		&-sm {
+			padding: rem(6);
+			@include text-lg;
+			width: rem(48);
+		}
+	}
 }
 
 .button-primary {
@@ -12,5 +29,18 @@
 	color: $color-white;
 }
 
+.button-secondary {
+	background-color: $color-white;
+	color: $color-gray-700;
+	box-shadow: 0px 0px 4px rgba($color: $color-black, $alpha: 0.1);
+}
+
+.button-sm {
+	padding: rem(8) rem(24);
+	@include text-sm;
+}
+
 .button-md {
+	padding: rem(12) rem(24);
+	@include text-base;
 }

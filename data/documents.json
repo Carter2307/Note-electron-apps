@@ -7,7 +7,11 @@
 			"title": "Grocery",
 			"description": "Lorem ipsum dolores ipmun monitor testering dilelsdkfhs",
 			"createAt": "16757658798",
-			"task": [
+			"badges": [
+				{ "value": "ui-design", "textContent": "Ui design" },
+				{ "value": "dev", "textContent": "Dev" }
+			],
+			"tasks": [
 				{
 					"id": "98798798",
 					"title": "Buy nut butter",
@@ -31,7 +35,7 @@
 			"title": "Grocery",
 			"description": "Lorem ipsum dolores ipmun monitor testering dilelsdkfhs",
 			"createAt": "16757658798",
-			"task": [
+			"tasks": [
 				{
 					"id": "98798798",
 					"title": "Buy nut butter",
@@ -47,7 +51,7 @@
 			"title": "Grocery",
 			"description": "Lorem ipsum dolores ipmun monitor testering dilelsdkfhs",
 			"createAt": "16757658798",
-			"task": [
+			"tasks": [
 				{
 					"id": "98798798",
 					"title": "Buy nut butter",

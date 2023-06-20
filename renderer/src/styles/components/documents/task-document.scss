@@ -1,0 +1,52 @@
+.task-document {
+	width: 100%;
+	height: 100%;
+	@include space-y(16);
+	position: relative;
+	transform: translateX(0px);
+}
+
+.task-document-container {
+	height: 100%;
+	padding-top: rem(32);
+	padding-bottom: rem(32);
+	overflow: scroll;
+	@include container($task-document-container);
+}
+
+.task-document-content {
+	@include space-y(32);
+
+	&-desc {
+		@include flex-between;
+	}
+
+	&-description {
+	}
+}
+
+.task-document-title {
+	@include text-lg;
+	font-weight: 700;
+}
+
+.task-document-dateAdded {
+	color: $color-gray-300;
+	font-weight: 500;
+}
+
+.task-document-list {
+	padding: rem(24) 0;
+	@include space-y(24);
+}
+
+.task-document-actions {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	@include space-y(16);
+	position: fixed;
+	bottom: rem(24);
+	right: rem(24);
+	margin: 0;
+}

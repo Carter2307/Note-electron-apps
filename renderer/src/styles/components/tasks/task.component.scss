@@ -23,6 +23,7 @@
 
 .task-content {
 	@include space-y(8);
+	flex-grow: 1;
 }
 
 .task-title {
@@ -38,7 +39,7 @@
 	height: rem(32);
 	width: rem(32);
 	border-radius: rem(8);
-	background-color: $color-gray-100;
+	background-color: $color-gray-300;
 	color: $color-gray-500;
 }
 

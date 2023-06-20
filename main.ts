@@ -11,8 +11,8 @@ const app = electron.app;
 
 function createWindow() {
 	const mainWindow = new BrowserWindow({
-		height: 600,
-		width: 800,
+		height: 800,
+		width: 1200,
 		titleBarStyle: "hidden",
 		trafficLightPosition: { x: 16, y: 18 },
 		webPreferences: {

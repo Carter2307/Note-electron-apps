@@ -117,9 +117,179 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"src/app/class/Components.ts":[function(require,module,exports) {
+})({"src/app/services/DataTransporter.service.ts":[function(require,module,exports) {
 "use strict";
 
+var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+var __generator = this && this.__generator || function (thisArg, body) {
+  var _ = {
+      label: 0,
+      sent: function sent() {
+        if (t[0] & 1) throw t[1];
+        return t[1];
+      },
+      trys: [],
+      ops: []
+    },
+    f,
+    y,
+    t,
+    g;
+  return g = {
+    next: verb(0),
+    "throw": verb(1),
+    "return": verb(2)
+  }, typeof Symbol === "function" && (g[Symbol.iterator] = function () {
+    return this;
+  }), g;
+  function verb(n) {
+    return function (v) {
+      return step([n, v]);
+    };
+  }
+  function step(op) {
+    if (f) throw new TypeError("Generator is already executing.");
+    while (g && (g = 0, op[0] && (_ = 0)), _) try {
+      if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+      if (y = 0, t) op = [op[0] & 2, t.value];
+      switch (op[0]) {
+        case 0:
+        case 1:
+          t = op;
+          break;
+        case 4:
+          _.label++;
+          return {
+            value: op[1],
+            done: false
+          };
+        case 5:
+          _.label++;
+          y = op[1];
+          op = [0];
+          continue;
+        case 7:
+          op = _.ops.pop();
+          _.trys.pop();
+          continue;
+        default:
+          if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+            _ = 0;
+            continue;
+          }
+          if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
+            _.label = op[1];
+            break;
+          }
+          if (op[0] === 6 && _.label < t[1]) {
+            _.label = t[1];
+            t = op;
+            break;
+          }
+          if (t && _.label < t[2]) {
+            _.label = t[2];
+            _.ops.push(op);
+            break;
+          }
+          if (t[2]) _.ops.pop();
+          _.trys.pop();
+          continue;
+      }
+      op = body.call(thisArg, _);
+    } catch (e) {
+      op = [6, e];
+      y = 0;
+    } finally {
+      f = t = 0;
+    }
+    if (op[0] & 5) throw op[1];
+    return {
+      value: op[0] ? op[1] : void 0,
+      done: true
+    };
+  }
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.DataTransporter = void 0;
+var DataTransporter = /** @class */function () {
+  function DataTransporter() {}
+  DataTransporter.getDocumentDatas = function (type) {
+    return __awaiter(this, void 0, Promise, function () {
+      var data;
+      return __generator(this, function (_a) {
+        switch (_a.label) {
+          case 0:
+            return [4 /*yield*/, window.documentDatas.getDatas(type)];
+          case 1:
+            data = _a.sent();
+            return [2 /*return*/, data];
+        }
+      });
+    });
+  };
+  DataTransporter.getOneDocument = function (id, datas) {
+    var data = {};
+    datas.forEach(function (d) {
+      if (d.id === id) {
+        data = d;
+      }
+    });
+    return data;
+  };
+  return DataTransporter;
+}();
+exports.DataTransporter = DataTransporter;
+},{}],"src/app/class/Components.ts":[function(require,module,exports) {
+"use strict";
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+    };
+    return _extendStatics(d, b);
+  };
+  return function (d, b) {
+    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+    _extendStatics(d, b);
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
 var __assign = this && this.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -133,8 +303,12 @@ var __assign = this && this.__assign || function () {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var Components = /** @class */function () {
-  function Components() {}
+var DataTransporter_service_1 = require("../services/DataTransporter.service");
+var Components = /** @class */function (_super) {
+  __extends(Components, _super);
+  function Components() {
+    return _super.call(this) || this;
+  }
   Components.prototype.createElement = function (type, options) {
     return Object.assign(document.createElement("".concat(type)), __assign({}, options));
   };
@@ -145,9 +319,9 @@ var Components = /** @class */function () {
   };
   Components.prototype.deleteElement = function () {};
   return Components;
-}();
+}(DataTransporter_service_1.DataTransporter);
 exports.default = Components;
-},{}],"src/app/components/molecules/Tooltip.ts":[function(require,module,exports) {
+},{"../services/DataTransporter.service":"src/app/services/DataTransporter.service.ts"}],"src/app/components/molecules/Tooltip.ts":[function(require,module,exports) {
 "use strict";
 
 var __extends = this && this.__extends || function () {
@@ -280,6 +454,189 @@ var Tooltip = /** @class */function (_super) {
   return Tooltip;
 }(Components_1.default);
 exports.default = Tooltip;
+},{"../../class/Components":"src/app/class/Components.ts"}],"src/app/components/atoms/Button.ts":[function(require,module,exports) {
+"use strict";
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+    };
+    return _extendStatics(d, b);
+  };
+  return function (d, b) {
+    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+    _extendStatics(d, b);
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Button = void 0;
+var Components_1 = __importDefault(require("../../class/Components"));
+var Button = /** @class */function (_super) {
+  __extends(Button, _super);
+  //Button size [sm, md, lg]
+  //Button style [primary, secondary, tertiary, disabled]
+  //Button type [default, icon]
+  function Button(label, style, size, cb, icon) {
+    var _this = _super.call(this) || this;
+    _this.label = label;
+    _this.style = style;
+    _this.size = size;
+    _this.icon = icon;
+    _this.cb = cb;
+    _this.element = _this.createButtonElement();
+    return _this;
+  }
+  Button.prototype.createButtonElement = function () {
+    var _this = this;
+    var element = this.createElement("button", {
+      className: "button button-".concat(this.style, " button-").concat(this.size),
+      type: "button",
+      onclick: function onclick() {
+        _this.cb();
+      }
+    });
+    var label = this.createElement("span", {
+      className: "button-label",
+      textContent: this.label
+    });
+    this.appendChild(element, [label]);
+    if (this.icon) {
+      var icon = this.createElement("i", {
+        className: "button-icon"
+      });
+      icon.classList.add(this.icon.value);
+      this.appendChild(element, [icon]);
+    }
+    return element;
+  };
+  return Button;
+}(Components_1.default);
+exports.Button = Button;
+},{"../../class/Components":"src/app/class/Components.ts"}],"src/app/components/atoms/Text.ts":[function(require,module,exports) {
+"use strict";
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+    };
+    return _extendStatics(d, b);
+  };
+  return function (d, b) {
+    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+    _extendStatics(d, b);
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var Components_1 = __importDefault(require("../../class/Components"));
+var Text = /** @class */function (_super) {
+  __extends(Text, _super);
+  function Text(options) {
+    var _this = _super.call(this) || this;
+    _this.TYPE = options.type;
+    _this.VALUE = options.value;
+    _this.CLASSNAME = options.className;
+    _this.ELEMENT = Object.assign(document.createElement("".concat(_this.TYPE)), {
+      className: _this.CLASSNAME,
+      textContent: _this.VALUE
+    });
+    return _this;
+  }
+  return Text;
+}(Components_1.default);
+exports.default = Text;
+},{"../../class/Components":"src/app/class/Components.ts"}],"src/app/components/molecules/Search.ts":[function(require,module,exports) {
+"use strict";
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+    };
+    return _extendStatics(d, b);
+  };
+  return function (d, b) {
+    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+    _extendStatics(d, b);
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Search = void 0;
+var Components_1 = __importDefault(require("../../class/Components"));
+var Search = /** @class */function (_super) {
+  __extends(Search, _super);
+  function Search(datas) {
+    var _this = _super.call(this) || this;
+    _this.datas = datas;
+    _this.element = _this.createSearchElement();
+    return _this;
+  }
+  Search.prototype.createSearchElement = function () {
+    var element = this.createElement("div", {
+      className: "search"
+    });
+    var input = this.createElement("input", {
+      className: "search-input",
+      type: "seach",
+      name: "document-seach",
+      placeholder: "Search something..."
+    });
+    var icon = this.createElement("i", {
+      className: "search-icon"
+    });
+    icon.classList.add("ri-search-2-line");
+    this.appendChild(element, [input, icon]);
+    return element;
+  };
+  return Search;
+}(Components_1.default);
+exports.Search = Search;
 },{"../../class/Components":"src/app/class/Components.ts"}],"src/app/components/molecules/Tools.ts":[function(require,module,exports) {
 "use strict";
 
@@ -376,54 +733,6 @@ var Tools = /** @class */function (_super) {
   return Tools;
 }(Components_1.default);
 exports.Tools = Tools;
-},{"../../class/Components":"src/app/class/Components.ts"}],"src/app/components/atoms/Text.ts":[function(require,module,exports) {
-"use strict";
-
-var __extends = this && this.__extends || function () {
-  var _extendStatics = function extendStatics(d, b) {
-    _extendStatics = Object.setPrototypeOf || {
-      __proto__: []
-    } instanceof Array && function (d, b) {
-      d.__proto__ = b;
-    } || function (d, b) {
-      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
-    };
-    return _extendStatics(d, b);
-  };
-  return function (d, b) {
-    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-    _extendStatics(d, b);
-    function __() {
-      this.constructor = d;
-    }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-}();
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var Components_1 = __importDefault(require("../../class/Components"));
-var Text = /** @class */function (_super) {
-  __extends(Text, _super);
-  function Text(options) {
-    var _this = _super.call(this) || this;
-    _this.TYPE = options.type;
-    _this.VALUE = options.value;
-    _this.CLASSNAME = options.className;
-    _this.ELEMENT = Object.assign(document.createElement("".concat(_this.TYPE)), {
-      className: _this.CLASSNAME,
-      textContent: _this.VALUE
-    });
-    return _this;
-  }
-  return Text;
-}(Components_1.default);
-exports.default = Text;
 },{"../../class/Components":"src/app/class/Components.ts"}],"src/app/helpers/DateHandler.ts":[function(require,module,exports) {
 "use strict";
 
@@ -619,7 +928,7 @@ var Task = /** @class */function (_super) {
   return Task;
 }(Components_1.default);
 exports.Task = Task;
-},{"./Tools":"src/app/components/molecules/Tools.ts","../../class/Components":"src/app/class/Components.ts","../atoms/Text":"src/app/components/atoms/Text.ts","../../helpers/DateHandler":"src/app/helpers/DateHandler.ts"}],"src/app/components/organisims/documents/TaskDocument.ts":[function(require,module,exports) {
+},{"./Tools":"src/app/components/molecules/Tools.ts","../../class/Components":"src/app/class/Components.ts","../atoms/Text":"src/app/components/atoms/Text.ts","../../helpers/DateHandler":"src/app/helpers/DateHandler.ts"}],"src/app/components/atoms/ButtonIcon.ts":[function(require,module,exports) {
 "use strict";
 
 var __extends = this && this.__extends || function () {
@@ -650,36 +959,484 @@ var __importDefault = this && this.__importDefault || function (mod) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.TaskDocument = void 0;
+var Components_1 = __importDefault(require("../../class/Components"));
+var ButtonIcon = /** @class */function (_super) {
+  __extends(ButtonIcon, _super);
+  function ButtonIcon(icon, style, size, cb) {
+    var _this = _super.call(this) || this;
+    _this.icon = icon;
+    _this.cb = cb;
+    _this.type = "icon";
+    _this.size = size;
+    _this.style = style;
+    _this.element = _this.createButtonIcon();
+    return _this;
+  }
+  ButtonIcon.prototype.createButtonIcon = function () {
+    var _this = this;
+    var element = this.createElement("button", {
+      className: "button button-".concat(this.type, " button-").concat(this.style, " button-").concat(this.type, "-").concat(this.size),
+      type: "button",
+      onclick: function onclick() {
+        _this.cb();
+      }
+    });
+    var label = this.createElement("i", {
+      className: this.icon
+    });
+    this.appendChild(element, [label]);
+    return element;
+  };
+  return ButtonIcon;
+}(Components_1.default);
+exports.default = ButtonIcon;
+},{"../../class/Components":"src/app/class/Components.ts"}],"src/app/components/organisims/documents/DocumentHandler.ts":[function(require,module,exports) {
+"use strict";
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+    };
+    return _extendStatics(d, b);
+  };
+  return function (d, b) {
+    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+    _extendStatics(d, b);
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.DocumentHandler = void 0;
 var Components_1 = __importDefault(require("../../../class/Components"));
+var DocumentHandler = /** @class */function (_super) {
+  __extends(DocumentHandler, _super);
+  function DocumentHandler() {
+    return _super !== null && _super.apply(this, arguments) || this;
+  }
+  DocumentHandler.getOneDocument = function (id, datas) {
+    var data = {};
+    datas.forEach(function (d) {
+      if (d.id === id) {
+        data = d;
+      }
+    });
+    return data;
+  };
+  return DocumentHandler;
+}(Components_1.default);
+exports.DocumentHandler = DocumentHandler;
+},{"../../../class/Components":"src/app/class/Components.ts"}],"src/app/components/atoms/form/TextBox.ts":[function(require,module,exports) {
+"use strict";
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+    };
+    return _extendStatics(d, b);
+  };
+  return function (d, b) {
+    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+    _extendStatics(d, b);
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.TextBox = void 0;
+var Components_1 = __importDefault(require("../../../class/Components"));
+var TextBox = /** @class */function (_super) {
+  __extends(TextBox, _super);
+  function TextBox(type, name, placeholder) {
+    var _this = _super.call(this) || this;
+    _this.type = type;
+    _this.name = name;
+    _this.id = name;
+    _this.placeholder = placeholder;
+    _this.element = _this.createTextBoxByType();
+    return _this;
+  }
+  TextBox.prototype.createTextBoxByType = function () {
+    var element;
+    if (this.type === "text-area") {
+      element = this.createTextArea();
+    } else {
+      element = this.createText();
+    }
+    return element;
+  };
+  TextBox.prototype.createTextArea = function () {
+    var element = this.createElement("text-area", {
+      className: "text-box text-area-box",
+      type: this.type,
+      name: this.name,
+      id: this.name,
+      placeholder: this.placeholder
+    });
+    return element;
+  };
+  TextBox.prototype.createText = function () {
+    var element = this.createElement("input", {
+      className: "text-box",
+      type: this.type,
+      name: this.name,
+      id: this.name,
+      placeholder: this.placeholder
+    });
+    return element;
+  };
+  return TextBox;
+}(Components_1.default);
+exports.TextBox = TextBox;
+},{"../../../class/Components":"src/app/class/Components.ts"}],"src/app/components/atoms/form/select.ts":[function(require,module,exports) {
+"use strict";
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+    };
+    return _extendStatics(d, b);
+  };
+  return function (d, b) {
+    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+    _extendStatics(d, b);
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Select = void 0;
+var Components_1 = __importDefault(require("../../../class/Components"));
+var Select = /** @class */function (_super) {
+  __extends(Select, _super);
+  function Select(name, options, documentId, placeholder, cb, id) {
+    var _this = _super.call(this) || this;
+    _this.options = options;
+    _this.name = name;
+    _this.id = id ? id : "";
+    _this.placeholder = placeholder;
+    _this.cb = cb;
+    _this.documentId = documentId;
+    _this.element = _this.createSelectElement();
+    return _this;
+  }
+  Select.prototype.createSelectElement = function () {
+    var _this = this;
+    var element = this.createElement("select", {
+      className: "select-box",
+      name: this.name,
+      id: this.id,
+      onchange: this.onChange.bind(this)
+    });
+    this.options.forEach(function (o) {
+      var option = _this.createSelectOptions(o);
+      _this.appendChild(element, [option]);
+    });
+    return element;
+  };
+  Select.prototype.createSelectOptions = function (params) {
+    var option = this.createElement("option", {
+      value: params.value,
+      textContent: params.textContent
+    });
+    return option;
+  };
+  Select.prototype.onChange = function (e) {
+    this.cb();
+  };
+  return Select;
+}(Components_1.default);
+exports.Select = Select;
+},{"../../../class/Components":"src/app/class/Components.ts"}],"src/app/components/organisims/documents/DocumentModal.ts":[function(require,module,exports) {
+"use strict";
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+    };
+    return _extendStatics(d, b);
+  };
+  return function (d, b) {
+    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+    _extendStatics(d, b);
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var Components_1 = __importDefault(require("../../../class/Components"));
+var Button_1 = require("../../atoms/Button");
+var TextBox_1 = require("../../atoms/form/TextBox");
+var select_1 = require("../../atoms/form/select");
+var DocumentModal = /** @class */function (_super) {
+  __extends(DocumentModal, _super);
+  function DocumentModal(documentDatas) {
+    var _this = _super.call(this) || this;
+    _this.documentDatas = documentDatas;
+    _this.element = _this.createModalElement();
+    return _this;
+  }
+  DocumentModal.prototype.createModalElement = function () {
+    var element = this.createElement("div", {
+      className: "modal"
+    });
+    return element;
+  };
+  DocumentModal.prototype.createAddTaskToDocumentModal = function () {
+    var container = this.createElement("div", {
+      className: "modal-content"
+    });
+    var block1 = this.createModalInputGroup("Task name", "task-name", "text", "add task...");
+    var block2 = this.createModalInputGroup("Description", "task-description", "text-area", "describe your task...");
+    var badgeBlock = this.createTaskBadgesHandler("Badges");
+    var action = this.createElement("div", {
+      className: "modal-actions"
+    });
+    var cancleButton = new Button_1.Button("Cancel", "secondary", "sm", this.onCancel);
+    var okButton = new Button_1.Button("Add Task", "primary", "sm", this.onCancel);
+    this.appendChild(action, [cancleButton.element, okButton.element]);
+    this.appendChild(container, [block1, block2, badgeBlock]);
+    this.appendChild(this.element, [container]);
+    return this;
+  };
+  DocumentModal.prototype.creatTaskDocumentSettingModal = function () {};
+  DocumentModal.prototype.createTaskBadgesHandler = function (label) {
+    var element = this.createElement("div", {
+      className: "modal-content-badges"
+    });
+    var blockLabel = this.createElement("span", {
+      className: "modal-content-block-label",
+      textContent: label
+    });
+    var blockBadges = this.createElement("div", {
+      className: "modal-content-block-badges"
+    });
+    var selectOptions = this.documentDatas.badges;
+    var select = new select_1.Select("badges", selectOptions, "", "Select badges", this.onBadgeSelected);
+    this.appendChild(blockBadges, [select.element]);
+    this.appendChild(element, [blockLabel, blockBadges]);
+    return element;
+  };
+  DocumentModal.prototype.createModalInputGroup = function (label, inputName, inputType, placehoder) {
+    var block = this.createElement("div", {
+      className: "modal-content-block"
+    });
+    var blockLabel = this.createElement("label", {
+      className: "modal-content-block-label",
+      for: inputName,
+      textContent: label
+    });
+    var input = new TextBox_1.TextBox(inputType, inputName, placehoder);
+    this.appendChild(block, [blockLabel, input.element]);
+    return block;
+  };
+  DocumentModal.prototype.createModalTagGroup = function () {};
+  DocumentModal.prototype.onBadgeSelected = function () {
+    console.log("on select changed");
+  };
+  DocumentModal.prototype.open = function () {
+    console.log("open modal");
+  };
+  DocumentModal.prototype.close = function () {
+    console.log("close modal");
+  };
+  DocumentModal.prototype.onCancel = function () {
+    this.close();
+  };
+  DocumentModal.prototype.onValidate = function () {};
+  return DocumentModal;
+}(Components_1.default);
+exports.default = DocumentModal;
+},{"../../../class/Components":"src/app/class/Components.ts","../../atoms/Button":"src/app/components/atoms/Button.ts","../../atoms/form/TextBox":"src/app/components/atoms/form/TextBox.ts","../../atoms/form/select":"src/app/components/atoms/form/select.ts"}],"src/app/components/organisims/documents/TaskDocumentActions.ts":[function(require,module,exports) {
+"use strict";
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+    };
+    return _extendStatics(d, b);
+  };
+  return function (d, b) {
+    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+    _extendStatics(d, b);
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var ButtonIcon_1 = __importDefault(require("../../atoms/ButtonIcon"));
+var DocumentHandler_1 = require("./DocumentHandler");
+var DocumentModal_1 = __importDefault(require("./DocumentModal"));
+var TaskDocumentActions = /** @class */function (_super) {
+  __extends(TaskDocumentActions, _super);
+  function TaskDocumentActions(document) {
+    var _this = _super.call(this) || this;
+    _this.document = document;
+    _this.element = _this.createActionElement();
+    _this.modal = new DocumentModal_1.default(_this.document);
+    return _this;
+  }
+  TaskDocumentActions.prototype.createActionElement = function () {
+    var element = this.createElement("div", {
+      className: "task-document-actions"
+    });
+    var addButton = new ButtonIcon_1.default("ri-add-fill", "primary", "md", this.addTaskToDocument.bind(this));
+    var settingButton = new ButtonIcon_1.default("ri-settings-4-line", "secondary", "sm", this.openDocumentSetting.bind(this));
+    this.appendChild(element, [settingButton.element, addButton.element]);
+    return element;
+  };
+  TaskDocumentActions.prototype.addTaskToDocument = function () {
+    //open modal for adding task
+    console.log("open modal for adding task");
+    this.modal.createAddTaskToDocumentModal().open();
+  };
+  TaskDocumentActions.prototype.openDocumentSetting = function () {
+    // open modal for document setting
+    console.log("open modal for document setting");
+  };
+  return TaskDocumentActions;
+}(DocumentHandler_1.DocumentHandler);
+exports.default = TaskDocumentActions;
+},{"../../atoms/ButtonIcon":"src/app/components/atoms/ButtonIcon.ts","./DocumentHandler":"src/app/components/organisims/documents/DocumentHandler.ts","./DocumentModal":"src/app/components/organisims/documents/DocumentModal.ts"}],"src/app/components/organisims/documents/TaskDocument.ts":[function(require,module,exports) {
+"use strict";
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+    };
+    return _extendStatics(d, b);
+  };
+  return function (d, b) {
+    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+    _extendStatics(d, b);
+    function __() {
+      this.constructor = d;
+    }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.TasksDocument = void 0;
 var Task_1 = require("../../molecules/Task");
 var Text_1 = __importDefault(require("../../atoms/Text"));
-var TaskDocument = /** @class */function (_super) {
-  __extends(TaskDocument, _super);
-  function TaskDocument(id, title, description, tasks) {
+var TaskDocumentActions_1 = __importDefault(require("./TaskDocumentActions"));
+var DocumentHandler_1 = require("./DocumentHandler");
+var TasksDocument = /** @class */function (_super) {
+  __extends(TasksDocument, _super);
+  function TasksDocument(documentDatas) {
     var _this = _super.call(this) || this;
-    _this.id = id;
-    _this.title = title;
-    _this.description = description;
+    _this.id = documentDatas.id;
+    _this.title = documentDatas.title;
+    _this.description = documentDatas.description;
     _this.date = Date.now();
-    _this.tasks = tasks;
-    console.log(_this.tasks);
+    _this.tasks = documentDatas.tasks;
+    _this.badges = documentDatas.badges;
+    _this.createAt = documentDatas.createAt;
+    _this.documentDatas = documentDatas;
     _this.list = _this.createElement("ul", {});
     _this.element = _this.uiHandler();
     _this.render();
     return _this;
   }
-  TaskDocument.prototype.render = function () {
+  TasksDocument.prototype.render = function () {
     var app = document.querySelector(".page-document");
     if (!app) return;
     app.innerHTML = "";
     app.appendChild(this.element);
   };
-  TaskDocument.prototype.uiHandler = function () {
+  TasksDocument.prototype.uiHandler = function () {
     var _this = this;
     var root = this.createElement("div", {
       className: "task-document",
       id: "task-document"
+    });
+    var container = this.createElement("div", {
+      className: "task-document-container"
+    });
+    var containerContent = this.createElement("div", {
+      className: "task-document-container-content"
     });
     var content = this.createElement("div", {
       className: "task-document-content"
@@ -702,6 +1459,7 @@ var TaskDocument = /** @class */function (_super) {
       type: "p",
       className: "task-document-dateAdded"
     }).ELEMENT;
+    var taskAction = new TaskDocumentActions_1.default(this);
     this.appendChild(contenttext, [title, dateAdd]);
     this.appendChild(content, [contenttext, description]);
     this.list = this.createElement("ul", {
@@ -711,320 +1469,75 @@ var TaskDocument = /** @class */function (_super) {
     this.tasks.forEach(function (task) {
       _this.addTask(task.title, task.description, task.badges);
     });
-    this.appendChild(root, [content, this.list]);
+    this.appendChild(containerContent, [content, this.list]);
+    this.appendChild(container, [containerContent]);
+    this.appendChild(root, [container, taskAction.element]);
     return root;
   };
-  TaskDocument.prototype.addTask = function (title, description, badges) {
+  TasksDocument.prototype.addTask = function (title, description, badges) {
     var id = "task-id-qsdqd";
     var task = new Task_1.Task(id, title, description, false, badges);
     this.list.appendChild(task.element);
   };
-  TaskDocument.prototype.edit = function (title, description) {
+  TasksDocument.prototype.edit = function (title, description) {
     if (title === "" || description === "") return;
     this.title = title;
     this.description = description;
   };
-  TaskDocument.prototype.clean = function () {
+  TasksDocument.prototype.clean = function () {
     this.tasks = [];
   };
-  TaskDocument.prototype.delete = function () {
+  TasksDocument.prototype.delete = function () {
     console.log("delete");
   };
-  return TaskDocument;
-}(Components_1.default);
-exports.TaskDocument = TaskDocument;
-},{"../../../class/Components":"src/app/class/Components.ts","../../molecules/Task":"src/app/components/molecules/Task.ts","../../atoms/Text":"src/app/components/atoms/Text.ts"}],"src/app/components/organisims/documents/Documents.ts":[function(require,module,exports) {
+  return TasksDocument;
+}(DocumentHandler_1.DocumentHandler);
+exports.TasksDocument = TasksDocument;
+},{"../../molecules/Task":"src/app/components/molecules/Task.ts","../../atoms/Text":"src/app/components/atoms/Text.ts","./TaskDocumentActions":"src/app/components/organisims/documents/TaskDocumentActions.ts","./DocumentHandler":"src/app/components/organisims/documents/DocumentHandler.ts"}],"src/app/components/organisims/documents/Documents.ts":[function(require,module,exports) {
 "use strict";
 
-var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function (resolve) {
-      resolve(value);
-    });
-  }
-  return new (P || (P = Promise))(function (resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __generator = this && this.__generator || function (thisArg, body) {
-  var _ = {
-      label: 0,
-      sent: function sent() {
-        if (t[0] & 1) throw t[1];
-        return t[1];
-      },
-      trys: [],
-      ops: []
-    },
-    f,
-    y,
-    t,
-    g;
-  return g = {
-    next: verb(0),
-    "throw": verb(1),
-    "return": verb(2)
-  }, typeof Symbol === "function" && (g[Symbol.iterator] = function () {
-    return this;
-  }), g;
-  function verb(n) {
-    return function (v) {
-      return step([n, v]);
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
     };
-  }
-  function step(op) {
-    if (f) throw new TypeError("Generator is already executing.");
-    while (g && (g = 0, op[0] && (_ = 0)), _) try {
-      if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-      if (y = 0, t) op = [op[0] & 2, t.value];
-      switch (op[0]) {
-        case 0:
-        case 1:
-          t = op;
-          break;
-        case 4:
-          _.label++;
-          return {
-            value: op[1],
-            done: false
-          };
-        case 5:
-          _.label++;
-          y = op[1];
-          op = [0];
-          continue;
-        case 7:
-          op = _.ops.pop();
-          _.trys.pop();
-          continue;
-        default:
-          if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
-            _ = 0;
-            continue;
-          }
-          if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
-            _.label = op[1];
-            break;
-          }
-          if (op[0] === 6 && _.label < t[1]) {
-            _.label = t[1];
-            t = op;
-            break;
-          }
-          if (t && _.label < t[2]) {
-            _.label = t[2];
-            _.ops.push(op);
-            break;
-          }
-          if (t[2]) _.ops.pop();
-          _.trys.pop();
-          continue;
-      }
-      op = body.call(thisArg, _);
-    } catch (e) {
-      op = [6, e];
-      y = 0;
-    } finally {
-      f = t = 0;
+    return _extendStatics(d, b);
+  };
+  return function (d, b) {
+    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+    _extendStatics(d, b);
+    function __() {
+      this.constructor = d;
     }
-    if (op[0] & 5) throw op[1];
-    return {
-      value: op[0] ? op[1] : void 0,
-      done: true
-    };
-  }
-};
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var TaskDocument_1 = require("../documents/TaskDocument");
-var Documents = /** @class */function () {
-  function Documents() {}
+var DocumentHandler_1 = require("./DocumentHandler");
+var Documents = /** @class */function (_super) {
+  __extends(Documents, _super);
+  function Documents() {
+    return _super !== null && _super.apply(this, arguments) || this;
+  }
   Documents.openDocument = function (id, type, datas) {
-    var documentData = this.getDocument(id, datas);
+    var documentData = this.getOneDocument(id, datas);
+    console.log(documentData.tasks);
     switch (type) {
       case "tasksDocuments":
-        var doc = new TaskDocument_1.TaskDocument(documentData.id, documentData.title, documentData.description, documentData.task);
+        new TaskDocument_1.TasksDocument(documentData);
     }
-  };
-  Documents.getDocumentDatas = function (type) {
-    return __awaiter(this, void 0, void 0, function () {
-      var data;
-      return __generator(this, function (_a) {
-        switch (_a.label) {
-          case 0:
-            return [4 /*yield*/, window.documentDatas.getDatas(type)];
-          case 1:
-            data = _a.sent();
-            return [2 /*return*/, data];
-        }
-      });
-    });
-  };
-  Documents.getDocument = function (id, datas) {
-    var data = {};
-    datas.forEach(function (d) {
-      if (d.id === id) {
-        data = d;
-      }
-    });
-    return data;
   };
   return Documents;
-}();
+}(DocumentHandler_1.DocumentHandler);
 exports.default = Documents;
-},{"../documents/TaskDocument":"src/app/components/organisims/documents/TaskDocument.ts"}],"src/app/components/atoms/Button.ts":[function(require,module,exports) {
-"use strict";
-
-var __extends = this && this.__extends || function () {
-  var _extendStatics = function extendStatics(d, b) {
-    _extendStatics = Object.setPrototypeOf || {
-      __proto__: []
-    } instanceof Array && function (d, b) {
-      d.__proto__ = b;
-    } || function (d, b) {
-      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
-    };
-    return _extendStatics(d, b);
-  };
-  return function (d, b) {
-    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-    _extendStatics(d, b);
-    function __() {
-      this.constructor = d;
-    }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-}();
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Button = void 0;
-var Components_1 = __importDefault(require("../../class/Components"));
-var Button = /** @class */function (_super) {
-  __extends(Button, _super);
-  //Button size [small, medium, large]
-  //Button type [primary, secondary, ...]
-  function Button(label, type, size, cb, icon) {
-    var _this = _super.call(this) || this;
-    _this.label = label;
-    _this.type = type;
-    _this.size = size;
-    _this.icon = icon;
-    _this.cb = cb;
-    _this.element = _this.createButtonElement();
-    return _this;
-  }
-  Button.prototype.createButtonElement = function () {
-    var _this = this;
-    var element = this.createElement("button", {
-      className: "button button-".concat(this.type, " button-").concat(this.size),
-      type: "button",
-      onclick: function onclick() {
-        _this.cb();
-      }
-    });
-    var label = this.createElement("span", {
-      className: "button-label",
-      textContent: this.label
-    });
-    this.appendChild(element, [label]);
-    if (this.icon) {
-      var icon = this.createElement("i", {
-        className: "button-icon"
-      });
-      icon.classList.add(this.icon.value);
-      this.appendChild(element, [icon]);
-    }
-    return element;
-  };
-  return Button;
-}(Components_1.default);
-exports.Button = Button;
-},{"../../class/Components":"src/app/class/Components.ts"}],"src/app/components/molecules/Search.ts":[function(require,module,exports) {
-"use strict";
-
-var __extends = this && this.__extends || function () {
-  var _extendStatics = function extendStatics(d, b) {
-    _extendStatics = Object.setPrototypeOf || {
-      __proto__: []
-    } instanceof Array && function (d, b) {
-      d.__proto__ = b;
-    } || function (d, b) {
-      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
-    };
-    return _extendStatics(d, b);
-  };
-  return function (d, b) {
-    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-    _extendStatics(d, b);
-    function __() {
-      this.constructor = d;
-    }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-}();
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
-};
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Search = void 0;
-var Components_1 = __importDefault(require("../../class/Components"));
-var Search = /** @class */function (_super) {
-  __extends(Search, _super);
-  function Search(datas) {
-    var _this = _super.call(this) || this;
-    _this.datas = datas;
-    _this.element = _this.createSearchElement();
-    return _this;
-  }
-  Search.prototype.createSearchElement = function () {
-    var element = this.createElement("div", {
-      className: "search"
-    });
-    var input = this.createElement("input", {
-      className: "search-input",
-      type: "seach",
-      name: "document-seach",
-      placeholder: "Search something..."
-    });
-    var icon = this.createElement("i", {
-      className: "search-icon"
-    });
-    icon.classList.add("ri-search-2-line");
-    this.appendChild(element, [input, icon]);
-    return element;
-  };
-  return Search;
-}(Components_1.default);
-exports.Search = Search;
-},{"../../class/Components":"src/app/class/Components.ts"}],"src/app/components/organisims/list/List.ts":[function(require,module,exports) {
+},{"../documents/TaskDocument":"src/app/components/organisims/documents/TaskDocument.ts","./DocumentHandler":"src/app/components/organisims/documents/DocumentHandler.ts"}],"src/app/components/organisims/list/List.ts":[function(require,module,exports) {
 "use strict";
 
 var __extends = this && this.__extends || function () {
@@ -1284,7 +1797,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Page = void 0;
 var Components_1 = __importDefault(require("../../class/Components"));
-var Documents_1 = __importDefault(require("../organisims/documents/Documents"));
 var List_1 = __importDefault(require("../organisims/list/List"));
 var Page = /** @class */function (_super) {
   __extends(Page, _super);
@@ -1321,7 +1833,7 @@ var Page = /** @class */function (_super) {
         switch (_a.label) {
           case 0:
             this.pageHandler(this.type);
-            return [4 /*yield*/, Documents_1.default.getDocumentDatas(this.type)];
+            return [4 /*yield*/, Components_1.default.getDocumentDatas(this.type)];
           case 1:
             datas = _a.sent();
             list = new List_1.default(this.type, datas);
@@ -1350,7 +1862,7 @@ var Page = /** @class */function (_super) {
   return Page;
 }(Components_1.default);
 exports.Page = Page;
-},{"../../class/Components":"src/app/class/Components.ts","../organisims/documents/Documents":"src/app/components/organisims/documents/Documents.ts","../organisims/list/List":"src/app/components/organisims/list/List.ts"}],"src/app/components/organisims/sidebar/Menu.ts":[function(require,module,exports) {
+},{"../../class/Components":"src/app/class/Components.ts","../organisims/list/List":"src/app/components/organisims/list/List.ts"}],"src/app/components/organisims/sidebar/Menu.ts":[function(require,module,exports) {
 "use strict";
 
 var __extends = this && this.__extends || function () {
@@ -1749,7 +2261,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57428" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61366" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

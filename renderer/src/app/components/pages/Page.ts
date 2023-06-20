@@ -40,7 +40,7 @@ export class Page extends Components {
 
 	async createList() {
 		this.pageHandler(this.type);
-		const datas: TaskDocument[] = await Documents.getDocumentDatas(this.type);
+		const datas: TaskDocument[] = await Components.getDocumentDatas(this.type);
 		const list: List = new List(this.type, datas);
 		this.list = list;
 

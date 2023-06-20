@@ -2,19 +2,20 @@ import Components from "../../class/Components";
 
 export class Button extends Components {
 	label: string;
-	type: string;
+	style: string;
 	size: string;
 	icon: ButtonIcon | undefined;
 	cb: CallableFunction;
 	element: HTMLButtonElement;
 
-	//Button size [small, medium, large]
-	//Button type [primary, secondary, ...]
+	//Button size [sm, md, lg]
+	//Button style [primary, secondary, tertiary, disabled]
+	//Button type [default, icon]
 
-	constructor(label: string, type: string, size: string, cb: CallableFunction, icon?: ButtonIcon) {
+	constructor(label: string, style: string, size: string, cb: CallableFunction, icon?: ButtonIcon) {
 		super();
 		this.label = label;
-		this.type = type;
+		this.style = style;
 		this.size = size;
 		this.icon = icon;
 		this.cb = cb;
@@ -23,7 +24,7 @@ export class Button extends Components {
 
 	private createButtonElement() {
 		const element = this.createElement<HTMLButtonElement>("button", {
-			className: `button button-${this.type} button-${this.size}`,
+			className: `button button-${this.style} button-${this.size}`,
 			type: "button",
 			onclick: () => {
 				this.cb();
