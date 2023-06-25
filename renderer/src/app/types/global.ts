@@ -49,4 +49,5 @@ type TaskDocument = {
 	createAt: number;
 	badges: Badge[];
 	tasks: Tasks;
+	addTask: (title: string, description: string, badges: string[]) => void;
 };

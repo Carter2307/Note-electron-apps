@@ -29,9 +29,8 @@ export class TextBox extends Components {
 	}
 
 	createTextArea() {
-		const element = this.createElement<HTMLTextAreaElement>("text-area", {
+		const element = this.createElement<HTMLTextAreaElement>("textarea", {
 			className: "text-box text-area-box",
-			type: this.type,
 			name: this.name,
 			id: this.name,
 			placeholder: this.placeholder,

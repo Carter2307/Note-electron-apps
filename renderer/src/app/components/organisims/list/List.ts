@@ -66,7 +66,7 @@ export default class List extends Components {
 			className: "page-list-cta",
 		});
 
-		const button = new Button("Add document", "primary", "md", () => {
+		const button = new Button("Add document", "primary", "md", "button", () => {
 			console.log("create new document by type");
 		});
 

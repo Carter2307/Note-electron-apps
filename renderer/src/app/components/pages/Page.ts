@@ -6,10 +6,12 @@ export class Page extends Components {
 	type: DocType;
 	list: List | any;
 	element: HTMLDivElement;
+	root: HTMLDivElement | null;
 
 	constructor(type: DocType) {
 		super();
 		this.type = type;
+		this.root = document.querySelector("#app");
 		this.element = this.createPageElement();
 	}
 
@@ -24,15 +26,14 @@ export class Page extends Components {
 			className: `page-document`,
 		});
 
-		const root = document.querySelector("#app");
-		const oldPage = root?.querySelector(".page");
+		const oldPage = this.root?.querySelector(".page");
 
 		this.createList().then((list) => {
 			if (oldPage) {
-				root?.removeChild(oldPage);
+				this.root?.removeChild(oldPage);
 			}
 			this.appendChild(element, [list.element, pageDocument]);
-			root?.appendChild(element);
+			this.root?.appendChild(element);
 		});
 
 		return element;
@@ -42,7 +43,6 @@ export class Page extends Components {
 		this.pageHandler(this.type);
 		const datas: TaskDocument[] = await Components.getDocumentDatas(this.type);
 		const list: List = new List(this.type, datas);
-		this.list = list;
 
 		return list;
 	}

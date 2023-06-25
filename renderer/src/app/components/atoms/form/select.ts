@@ -6,7 +6,7 @@ export class Select extends Components {
 	id: string | null;
 	placeholder: string;
 	cb: CallableFunction;
-	element: HTMLSelectElement;
+	element: HTMLDivElement;
 	documentId: string;
 
 	constructor(name: string, options: SelectOption[], documentId: string, placeholder: string, cb: CallableFunction, id?: string) {
@@ -21,17 +21,31 @@ export class Select extends Components {
 	}
 
 	private createSelectElement() {
-		const element = this.createElement<HTMLSelectElement>("select", {
+		const element = this.createElement<HTMLDivElement>("div", {
 			className: "select-box",
 			name: this.name,
 			id: this.id,
 			onchange: this.onChange.bind(this),
 		});
 
+		const select = this.createElement<HTMLSelectElement>("select", {
+			className: "select-box-element",
+			name: this.name,
+			id: this.id,
+			onchange: this.onChange.bind(this),
+		});
+
+		const icon = this.createElement<HTMLSpanElement>("span", {
+			className: "select-box-icon",
+			innerHTML: "<i class='ri-arrow-down-s-line'></i>",
+		});
+
 		this.options.forEach((o) => {
 			const option = this.createSelectOptions(o);
-			this.appendChild(element, [option]);
+			this.appendChild(select, [option]);
 		});
+
+		this.appendChild(element, [select, icon]);
 
 		return element;
 	}

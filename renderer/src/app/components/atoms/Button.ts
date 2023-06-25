@@ -5,19 +5,21 @@ export class Button extends Components {
 	style: string;
 	size: string;
 	icon: ButtonIcon | undefined;
-	cb: CallableFunction;
+	cb: CallableFunction | undefined;
 	element: HTMLButtonElement;
+	type: string;
 
 	//Button size [sm, md, lg]
 	//Button style [primary, secondary, tertiary, disabled]
 	//Button type [default, icon]
 
-	constructor(label: string, style: string, size: string, cb: CallableFunction, icon?: ButtonIcon) {
+	constructor(label: string, style: string, size: string, type: string, cb?: CallableFunction, icon?: ButtonIcon) {
 		super();
 		this.label = label;
 		this.style = style;
 		this.size = size;
 		this.icon = icon;
+		this.type = type;
 		this.cb = cb;
 		this.element = this.createButtonElement();
 	}
@@ -25,8 +27,9 @@ export class Button extends Components {
 	private createButtonElement() {
 		const element = this.createElement<HTMLButtonElement>("button", {
 			className: `button button-${this.style} button-${this.size}`,
-			type: "button",
+			type: this.type,
 			onclick: () => {
+				if (!this.cb) return;
 				this.cb();
 			},
 		});

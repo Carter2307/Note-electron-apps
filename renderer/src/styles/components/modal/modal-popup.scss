@@ -1,0 +1,41 @@
+.modal-popup {
+	top: 0;
+	max-width: rem(265);
+	width: rem(265);
+	border-radius: $modal-radius;
+	padding: rem(8);
+	background-color: $modal-color;
+}
+
+.modal-content {
+	display: flex;
+	flex-direction: column;
+	gap: rem(8);
+	color: $modal-text-color;
+
+	&-block {
+		width: 100%;
+		background: $modal-block-color;
+		padding: rem(8);
+		border-radius: rem(6);
+		@include space-y(10);
+
+		&-label {
+			@include text-sm;
+			font-weight: 600;
+		}
+	}
+
+	&-badges {
+		width: 100%;
+		background: $modal-block-color;
+		padding: rem(8);
+		border-radius: rem(6);
+		@include space-y(10);
+
+		&-label {
+			@include text-sm;
+			font-weight: 600;
+		}
+	}
+}

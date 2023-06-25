@@ -9,7 +9,7 @@ export class Task extends Components {
 	description: string;
 	checked: boolean;
 	badges: string[];
-	time: DateString;
+	createAt: number;
 	element: HTMLLIElement;
 	tools: Tools;
 
@@ -20,15 +20,13 @@ export class Task extends Components {
 		this.description = description;
 		this.checked = checked;
 		this.badges = badges;
-		this.time = new DateString();
-		this.tools = new Tools(this);
+		this.createAt = 0;
+		this.tools = new Tools(this, this.edit, this.archive, this.delete);
 		this.element = this.createHtmlElement();
-		this.init();
+
 		this.render();
 		this.eventListener();
 	}
-
-	init() {}
 
 	render() {
 		const app = document.getElementById("app");
@@ -104,7 +102,7 @@ export class Task extends Components {
 		});
 
 		window.setInterval(() => {
-			time.textContent = this.time.dateString;
+			time.textContent = String(this.createAt);
 		}, 1000);
 
 		this.appendChild(footer, [badges, time]);
@@ -113,9 +111,15 @@ export class Task extends Components {
 		return element;
 	}
 
-	delete() {}
-	archive() {}
-	edit() {}
+	delete() {
+		console.log("task action");
+	}
+	archive() {
+		console.log("task action");
+	}
+	edit() {
+		console.log("task action");
+	}
 
 	onChecked(e: Event) {
 		e.preventDefault();
@@ -123,6 +127,6 @@ export class Task extends Components {
 	}
 
 	eventListener() {
-		this.element.addEventListener("click", this.onChecked.bind(this));
+		//this.element.addEventListener("click", this.onChecked.bind(this));
 	}
 }

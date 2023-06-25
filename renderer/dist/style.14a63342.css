@@ -220,10 +220,10 @@ body {
 html {
   height: 100%;
   scroll-behavior: smooth;
+  font-family: "inter";
 }
 
 body {
-  font-family: "inter";
   scroll-behavior: smooth;
   overflow-x: hidden;
   font-size: 16;
@@ -420,6 +420,121 @@ body {
   right: 1rem;
   top: 50%;
   transform: translateY(-50%);
+}
+
+.text-box {
+  padding: 0.875rem 1rem;
+  background: #4d4d4d;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.5);
+  display: inline-block;
+  width: 100%;
+  font-weight: 600;
+  outline: none;
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.25rem; /* 20px */
+}
+.text-box:focus {
+  box-shadow: 0px 0px 0px 3px rgba(255, 255, 255, 0.1);
+  border-color: #3a3a3a;
+}
+.text-box::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.select-box {
+  width: 100%;
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.25rem; /* 20px */
+}
+.select-box-element {
+  padding: 0.5rem 1rem;
+  background: #4d4d4d;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.5);
+  display: inline-block;
+  font-weight: 600;
+  outline: none;
+  position: relative;
+  width: 100%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: "";
+}
+.select-box:focus {
+  box-shadow: 0px 0px 0px 3px rgba(255, 255, 255, 0.1);
+  border-color: #3a3a3a;
+}
+.select-box-icon {
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.75rem; /* 28px */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  width: 2rem;
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-44%);
+}
+
+.modal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 5;
+  backdrop-filter: blur(20px);
+  background-color: rgba(217, 217, 217, 0.05);
+}
+
+.modal-popup {
+  top: 0;
+  max-width: 16.5625rem;
+  width: 16.5625rem;
+  border-radius: 0.875rem;
+  padding: 0.5rem;
+  background-color: #535353;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: #9c9c9c;
+}
+.modal-content-block {
+  width: 100%;
+  background: #3a3a3a;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+}
+.modal-content-block > * + * {
+  margin-top: 0.625rem;
+}
+.modal-content-block-label {
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.25rem; /* 20px */
+  font-weight: 600;
+}
+.modal-content-badges {
+  width: 100%;
+  background: #3a3a3a;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+}
+.modal-content-badges > * + * {
+  margin-top: 0.625rem;
+}
+.modal-content-badges-label {
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.25rem; /* 20px */
+  font-weight: 600;
 }
 
 .task-badge {

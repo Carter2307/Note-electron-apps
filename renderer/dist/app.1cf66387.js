@@ -492,12 +492,13 @@ var Button = /** @class */function (_super) {
   //Button size [sm, md, lg]
   //Button style [primary, secondary, tertiary, disabled]
   //Button type [default, icon]
-  function Button(label, style, size, cb, icon) {
+  function Button(label, style, size, type, cb, icon) {
     var _this = _super.call(this) || this;
     _this.label = label;
     _this.style = style;
     _this.size = size;
     _this.icon = icon;
+    _this.type = type;
     _this.cb = cb;
     _this.element = _this.createButtonElement();
     return _this;
@@ -506,8 +507,9 @@ var Button = /** @class */function (_super) {
     var _this = this;
     var element = this.createElement("button", {
       className: "button button-".concat(this.style, " button-").concat(this.size),
-      type: "button",
+      type: this.type,
       onclick: function onclick() {
+        if (!_this.cb) return;
         _this.cb();
       }
     });
@@ -672,25 +674,28 @@ exports.Tools = void 0;
 var Components_1 = __importDefault(require("../../class/Components"));
 var Tools = /** @class */function (_super) {
   __extends(Tools, _super);
-  function Tools(task) {
+  function Tools(task, onEdit, onArchive, onDelete) {
     var _this = _super.call(this) || this;
     _this.TASK = task;
     _this.ELEMENT = _this.createElement("div", {
       className: "task-actions",
       id: "task-actions"
     });
+    _this.onEdit = onEdit;
+    _this.onArchive = onEdit;
+    _this.onDelete = onEdit;
     _this.ACTIONS = [{
       type: "edit",
       icon: "<i class='ri-pencil-line'></i>",
-      cb: _this.edit
+      cb: _this.onEdit
     }, {
       type: "archive",
       icon: "<i class='ri-archive-line'></i>",
-      cb: _this.archive
+      cb: _this.onArchive
     }, {
       type: "delete",
       icon: "<i class='ri-delete-bin-6-line'></i>",
-      cb: _this.delete
+      cb: _this.onDelete
     }];
     _this.definedElement();
     return _this;
@@ -719,75 +724,11 @@ var Tools = /** @class */function (_super) {
     this.appendChild(this.ELEMENT, buttons);
   };
   Tools.prototype.hide = function () {};
-  Tools.prototype.delete = function () {
-    console.log("delete");
-    console.log(this.TASK);
-  };
-  Tools.prototype.archive = function () {
-    console.log("archive");
-  };
-  Tools.prototype.edit = function () {
-    console.log("edit");
-  };
   Tools.prototype.show = function () {};
   return Tools;
 }(Components_1.default);
 exports.Tools = Tools;
-},{"../../class/Components":"src/app/class/Components.ts"}],"src/app/helpers/DateHandler.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.DateString = void 0;
-var DateString = /** @class */function () {
-  function DateString() {
-    this.dateString = "";
-    this.start = Date.now();
-    this.elapsed = 0;
-    this.time = {
-      second: this.elapsed,
-      minute: 0,
-      hour: 0,
-      day: 0,
-      week: 0,
-      month: 0,
-      year: 0
-    };
-    this.timeFormated();
-  }
-  DateString.prototype.timeFormated = function () {
-    var _this = this;
-    setInterval(function () {
-      _this.elapsed = Math.floor((Date.now() - _this.start) / 1000);
-      _this.time.second = _this.elapsed;
-      _this.time.minute = _this.time.second / 60;
-      _this.time.hour = _this.time.minute / 60;
-      _this.time.day = _this.time.hour / 24;
-      _this.time.week = _this.time.day / 7;
-      _this.time.month = _this.time.week / 4;
-      _this.time.year = _this.time.month / 12;
-      if (_this.time.second <= 60) {
-        _this.dateString = "".concat(_this.time.second, "s ago");
-      } else if (_this.time.second >= 60) {
-        _this.dateString = "".concat(Math.floor(_this.time.minute), "min ago");
-      } else if (_this.time.minute >= 60) {
-        _this.dateString = "".concat(Math.floor(_this.time.hour), "hour ago");
-      } else if (_this.time.hour >= 24) {
-        _this.dateString = "".concat(Math.floor(_this.time.day), "day ago");
-      } else if (_this.time.day >= 7) {
-        _this.dateString = "".concat(Math.floor(_this.time.week), "week ago");
-      } else if (_this.time.week >= 4) {
-        _this.dateString = "".concat(Math.floor(_this.time.month), "month ago");
-      } else if (_this.time.month >= 12) {
-        _this.dateString = "".concat(Math.floor(_this.time.year), "year ago");
-      }
-    }, 1000);
-  };
-  return DateString;
-}();
-exports.DateString = DateString;
-},{}],"src/app/components/molecules/Task.ts":[function(require,module,exports) {
+},{"../../class/Components":"src/app/class/Components.ts"}],"src/app/components/molecules/Task.ts":[function(require,module,exports) {
 "use strict";
 
 var __extends = this && this.__extends || function () {
@@ -822,7 +763,6 @@ exports.Task = void 0;
 var Tools_1 = require("./Tools");
 var Components_1 = __importDefault(require("../../class/Components"));
 var Text_1 = __importDefault(require("../atoms/Text"));
-var DateHandler_1 = require("../../helpers/DateHandler");
 var Task = /** @class */function (_super) {
   __extends(Task, _super);
   function Task(id, title, description, checked, badges) {
@@ -832,15 +772,13 @@ var Task = /** @class */function (_super) {
     _this.description = description;
     _this.checked = checked;
     _this.badges = badges;
-    _this.time = new DateHandler_1.DateString();
-    _this.tools = new Tools_1.Tools(_this);
+    _this.createAt = 0;
+    _this.tools = new Tools_1.Tools(_this, _this.edit, _this.archive, _this.delete);
     _this.element = _this.createHtmlElement();
-    _this.init();
     _this.render();
     _this.eventListener();
     return _this;
   }
-  Task.prototype.init = function () {};
   Task.prototype.render = function () {
     var app = document.getElementById("app");
     if (!app) return;
@@ -909,26 +847,32 @@ var Task = /** @class */function (_super) {
       textContent: "0s ago"
     });
     window.setInterval(function () {
-      time.textContent = _this.time.dateString;
+      time.textContent = String(_this.createAt);
     }, 1000);
     this.appendChild(footer, [badges, time]);
     this.appendChild(element, [footer]);
     return element;
   };
-  Task.prototype.delete = function () {};
-  Task.prototype.archive = function () {};
-  Task.prototype.edit = function () {};
+  Task.prototype.delete = function () {
+    console.log("task action");
+  };
+  Task.prototype.archive = function () {
+    console.log("task action");
+  };
+  Task.prototype.edit = function () {
+    console.log("task action");
+  };
   Task.prototype.onChecked = function (e) {
     e.preventDefault();
     console.log("click");
   };
   Task.prototype.eventListener = function () {
-    this.element.addEventListener("click", this.onChecked.bind(this));
+    //this.element.addEventListener("click", this.onChecked.bind(this));
   };
   return Task;
 }(Components_1.default);
 exports.Task = Task;
-},{"./Tools":"src/app/components/molecules/Tools.ts","../../class/Components":"src/app/class/Components.ts","../atoms/Text":"src/app/components/atoms/Text.ts","../../helpers/DateHandler":"src/app/helpers/DateHandler.ts"}],"src/app/components/atoms/ButtonIcon.ts":[function(require,module,exports) {
+},{"./Tools":"src/app/components/molecules/Tools.ts","../../class/Components":"src/app/class/Components.ts","../atoms/Text":"src/app/components/atoms/Text.ts"}],"src/app/components/atoms/ButtonIcon.ts":[function(require,module,exports) {
 "use strict";
 
 var __extends = this && this.__extends || function () {
@@ -977,8 +921,8 @@ var ButtonIcon = /** @class */function (_super) {
     var element = this.createElement("button", {
       className: "button button-".concat(this.type, " button-").concat(this.style, " button-").concat(this.type, "-").concat(this.size),
       type: "button",
-      onclick: function onclick() {
-        _this.cb();
+      onclick: function onclick(e) {
+        _this.cb(e);
       }
     });
     var label = this.createElement("i", {
@@ -1094,9 +1038,8 @@ var TextBox = /** @class */function (_super) {
     return element;
   };
   TextBox.prototype.createTextArea = function () {
-    var element = this.createElement("text-area", {
+    var element = this.createElement("textarea", {
       className: "text-box text-area-box",
-      type: this.type,
       name: this.name,
       id: this.name,
       placeholder: this.placeholder
@@ -1164,16 +1107,27 @@ var Select = /** @class */function (_super) {
   }
   Select.prototype.createSelectElement = function () {
     var _this = this;
-    var element = this.createElement("select", {
+    var element = this.createElement("div", {
       className: "select-box",
       name: this.name,
       id: this.id,
       onchange: this.onChange.bind(this)
     });
+    var select = this.createElement("select", {
+      className: "select-box-element",
+      name: this.name,
+      id: this.id,
+      onchange: this.onChange.bind(this)
+    });
+    var icon = this.createElement("span", {
+      className: "select-box-icon",
+      innerHTML: "<i class='ri-arrow-down-s-line'></i>"
+    });
     this.options.forEach(function (o) {
       var option = _this.createSelectOptions(o);
-      _this.appendChild(element, [option]);
+      _this.appendChild(select, [option]);
     });
+    this.appendChild(element, [select, icon]);
     return element;
   };
   Select.prototype.createSelectOptions = function (params) {
@@ -1226,15 +1180,21 @@ var TextBox_1 = require("../../atoms/form/TextBox");
 var select_1 = require("../../atoms/form/select");
 var DocumentModal = /** @class */function (_super) {
   __extends(DocumentModal, _super);
-  function DocumentModal(documentDatas) {
+  function DocumentModal(documentDatas, cb) {
     var _this = _super.call(this) || this;
     _this.documentDatas = documentDatas;
+    _this.modalDatas = {};
+    _this.cb = cb;
+    _this.form = _this.createElement("form", {
+      className: "modal-form",
+      onsubmit: _this.onSubmit.bind(_this)
+    });
     _this.element = _this.createModalElement();
     return _this;
   }
   DocumentModal.prototype.createModalElement = function () {
     var element = this.createElement("div", {
-      className: "modal"
+      className: "modal modal-popup"
     });
     return element;
   };
@@ -1248,11 +1208,12 @@ var DocumentModal = /** @class */function (_super) {
     var action = this.createElement("div", {
       className: "modal-actions"
     });
-    var cancleButton = new Button_1.Button("Cancel", "secondary", "sm", this.onCancel);
-    var okButton = new Button_1.Button("Add Task", "primary", "sm", this.onCancel);
+    var cancleButton = new Button_1.Button("Cancel", "secondary", "sm", "button", this.onCancel.bind(this));
+    var okButton = new Button_1.Button("Add Task", "primary", "sm", "submit");
     this.appendChild(action, [cancleButton.element, okButton.element]);
     this.appendChild(container, [block1, block2, badgeBlock]);
-    this.appendChild(this.element, [container]);
+    this.appendChild(this.form, [container, action]);
+    this.appendChild(this.element, [this.form]);
     return this;
   };
   DocumentModal.prototype.creatTaskDocumentSettingModal = function () {};
@@ -1286,12 +1247,15 @@ var DocumentModal = /** @class */function (_super) {
     this.appendChild(block, [blockLabel, input.element]);
     return block;
   };
+  DocumentModal.prototype.createModalAction = function () {};
   DocumentModal.prototype.createModalTagGroup = function () {};
   DocumentModal.prototype.onBadgeSelected = function () {
     console.log("on select changed");
   };
+  DocumentModal.prototype.show = function () {};
   DocumentModal.prototype.open = function () {
-    console.log("open modal");
+    var root = document.querySelector(".task-document-container");
+    root === null || root === void 0 ? void 0 : root.appendChild(this.element);
   };
   DocumentModal.prototype.close = function () {
     console.log("close modal");
@@ -1299,7 +1263,18 @@ var DocumentModal = /** @class */function (_super) {
   DocumentModal.prototype.onCancel = function () {
     this.close();
   };
-  DocumentModal.prototype.onValidate = function () {};
+  DocumentModal.prototype.getModalDatas = function () {
+    return this.modalDatas;
+  };
+  DocumentModal.prototype.onSubmit = function (e) {
+    e.preventDefault();
+    this.modalDatas = {
+      title: "",
+      description: "",
+      badges: ["UI design"]
+    };
+    this.cb(this.modalDatas);
+  };
   return DocumentModal;
 }(Components_1.default);
 exports.default = DocumentModal;
@@ -1343,7 +1318,6 @@ var TaskDocumentActions = /** @class */function (_super) {
     var _this = _super.call(this) || this;
     _this.document = document;
     _this.element = _this.createActionElement();
-    _this.modal = new DocumentModal_1.default(_this.document);
     return _this;
   }
   TaskDocumentActions.prototype.createActionElement = function () {
@@ -1355,10 +1329,11 @@ var TaskDocumentActions = /** @class */function (_super) {
     this.appendChild(element, [settingButton.element, addButton.element]);
     return element;
   };
-  TaskDocumentActions.prototype.addTaskToDocument = function () {
-    //open modal for adding task
-    console.log("open modal for adding task");
-    this.modal.createAddTaskToDocumentModal().open();
+  TaskDocumentActions.prototype.addTaskToDocument = function (e) {
+    var modal = new DocumentModal_1.default(this.document, function (data) {
+      console.log(data);
+    });
+    modal.createAddTaskToDocumentModal().open();
   };
   TaskDocumentActions.prototype.openDocumentSetting = function () {
     // open modal for document setting
@@ -1390,6 +1365,15 @@ var __extends = this && this.__extends || function () {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
   };
 }();
+var __spreadArray = this && this.__spreadArray || function (to, from, pack) {
+  if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+    if (ar || !(i in from)) {
+      if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+      ar[i] = from[i];
+    }
+  }
+  return to.concat(ar || Array.prototype.slice.call(from));
+};
 var __importDefault = this && this.__importDefault || function (mod) {
   return mod && mod.__esModule ? mod : {
     "default": mod
@@ -1410,13 +1394,15 @@ var TasksDocument = /** @class */function (_super) {
     _this.id = documentDatas.id;
     _this.title = documentDatas.title;
     _this.description = documentDatas.description;
-    _this.date = Date.now();
     _this.tasks = documentDatas.tasks;
     _this.badges = documentDatas.badges;
     _this.createAt = documentDatas.createAt;
-    _this.documentDatas = documentDatas;
-    _this.list = _this.createElement("ul", {});
-    _this.element = _this.uiHandler();
+    _this.datas = documentDatas;
+    _this.taskList = _this.createElement("ul", {
+      className: "task-document-list",
+      id: "task-document-list"
+    });
+    _this.element = _this.createHtmlElement();
     _this.render();
     return _this;
   }
@@ -1426,7 +1412,10 @@ var TasksDocument = /** @class */function (_super) {
     app.innerHTML = "";
     app.appendChild(this.element);
   };
-  TasksDocument.prototype.uiHandler = function () {
+  TasksDocument.prototype.renderTaskList = function () {
+    console.log(this.taskList);
+  };
+  TasksDocument.prototype.createHtmlElement = function () {
     var _this = this;
     var root = this.createElement("div", {
       className: "task-document",
@@ -1455,21 +1444,18 @@ var TasksDocument = /** @class */function (_super) {
       className: "task-document-description"
     }).ELEMENT;
     var dateAdd = new Text_1.default({
-      value: String(this.date),
+      value: String(this.createAt),
       type: "p",
       className: "task-document-dateAdded"
     }).ELEMENT;
     var taskAction = new TaskDocumentActions_1.default(this);
     this.appendChild(contenttext, [title, dateAdd]);
     this.appendChild(content, [contenttext, description]);
-    this.list = this.createElement("ul", {
-      className: "task-document-list",
-      id: "task-document-list"
-    });
+    //For testing
     this.tasks.forEach(function (task) {
       _this.addTask(task.title, task.description, task.badges);
     });
-    this.appendChild(containerContent, [content, this.list]);
+    this.appendChild(containerContent, [content, this.taskList]);
     this.appendChild(container, [containerContent]);
     this.appendChild(root, [container, taskAction.element]);
     return root;
@@ -1477,19 +1463,26 @@ var TasksDocument = /** @class */function (_super) {
   TasksDocument.prototype.addTask = function (title, description, badges) {
     var id = "task-id-qsdqd";
     var task = new Task_1.Task(id, title, description, false, badges);
-    this.list.appendChild(task.element);
+    this.taskList.appendChild(task.element);
+    this.tasks = __spreadArray(__spreadArray([], this.tasks, true), [task], false);
+    //console.log(this.tasks);
   };
-  TasksDocument.prototype.edit = function (title, description) {
+
+  TasksDocument.prototype.editDocument = function (title, description) {
     if (title === "" || description === "") return;
     this.title = title;
     this.description = description;
   };
-  TasksDocument.prototype.clean = function () {
+  TasksDocument.prototype.cleanTasks = function () {
     this.tasks = [];
   };
-  TasksDocument.prototype.delete = function () {
-    console.log("delete");
+  TasksDocument.prototype.deleteTask = function (id) {
+    this.tasks = this.tasks.filter(function (task) {
+      return task.id !== id;
+    });
+    this.renderTaskList();
   };
+  TasksDocument.prototype.editTask = function (id, props) {};
   return TasksDocument;
 }(DocumentHandler_1.DocumentHandler);
 exports.TasksDocument = TasksDocument;
@@ -1634,7 +1627,7 @@ var List = /** @class */function (_super) {
     var cta = this.createElement("div", {
       className: "page-list-cta"
     });
-    var button = new Button_1.Button("Add document", "primary", "md", function () {
+    var button = new Button_1.Button("Add document", "primary", "md", "button", function () {
       console.log("create new document by type");
     });
     this.appendChild(container, [content]);
@@ -1803,11 +1796,13 @@ var Page = /** @class */function (_super) {
   function Page(type) {
     var _this = _super.call(this) || this;
     _this.type = type;
+    _this.root = document.querySelector("#app");
     _this.element = _this.createPageElement();
     return _this;
   }
   Page.prototype.createPageElement = function () {
     var _this = this;
+    var _a;
     var element = this.createElement("div", {
       className: "page"
     });
@@ -1815,14 +1810,14 @@ var Page = /** @class */function (_super) {
     var pageDocument = this.createElement("section", {
       className: "page-document"
     });
-    var root = document.querySelector("#app");
-    var oldPage = root === null || root === void 0 ? void 0 : root.querySelector(".page");
+    var oldPage = (_a = this.root) === null || _a === void 0 ? void 0 : _a.querySelector(".page");
     this.createList().then(function (list) {
+      var _a, _b;
       if (oldPage) {
-        root === null || root === void 0 ? void 0 : root.removeChild(oldPage);
+        (_a = _this.root) === null || _a === void 0 ? void 0 : _a.removeChild(oldPage);
       }
       _this.appendChild(element, [list.element, pageDocument]);
-      root === null || root === void 0 ? void 0 : root.appendChild(element);
+      (_b = _this.root) === null || _b === void 0 ? void 0 : _b.appendChild(element);
     });
     return element;
   };
@@ -1837,7 +1832,6 @@ var Page = /** @class */function (_super) {
           case 1:
             datas = _a.sent();
             list = new List_1.default(this.type, datas);
-            this.list = list;
             return [2 /*return*/, list];
         }
       });
@@ -2261,7 +2255,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61366" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55744" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

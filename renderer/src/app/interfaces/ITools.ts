@@ -3,8 +3,8 @@ export interface ITools {
 	ACTIONS: { type: string; icon: string; cb: CallableFunction }[];
 	show: () => void;
 	hide: () => void;
-	delete: () => void;
-	archive: () => void;
-	edit: () => void;
+	onDelete: CallableFunction;
+	onArchive: CallableFunction;
+	onEdit: CallableFunction;
 	definedElement: () => void;
 }

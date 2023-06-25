@@ -21,8 +21,8 @@ export default class ButtonIcon extends Components {
 		const element = this.createElement<HTMLButtonElement>("button", {
 			className: `button button-${this.type} button-${this.style} button-${this.type}-${this.size}`,
 			type: "button",
-			onclick: () => {
-				this.cb();
+			onclick: (e: Event) => {
+				this.cb(e);
 			},
 		});
 

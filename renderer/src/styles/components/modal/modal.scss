@@ -1,0 +1,10 @@
+.modal {
+	position: fixed;
+	left: 0;
+	right: 0;
+	height: 100vh;
+	width: 100vw;
+	z-index: z("modal");
+	backdrop-filter: blur(20px);
+	background-color: rgba($color: #d9d9d9, $alpha: 0.05);
+}

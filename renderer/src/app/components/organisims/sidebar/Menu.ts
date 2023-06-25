@@ -1,6 +1,5 @@
 import Components from "../../../class/Components";
 import { Page } from "../../pages/Page";
-import List from "../list/List";
 
 export class Menu extends Components {
 	createMenu(menu: menuOptions) {

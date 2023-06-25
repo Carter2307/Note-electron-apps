@@ -1,5 +1,4 @@
 import Tooltip from "./components/molecules/Tooltip";
-import { TaskDocument } from "./components/organisims/documents/TaskDocument";
 import { SideBar } from "./components/organisims/sidebar/Sidebar";
 
 declare global {

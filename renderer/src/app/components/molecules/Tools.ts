@@ -6,8 +6,11 @@ export class Tools extends Components implements ITools {
 	ELEMENT: HTMLDivElement;
 	ACTIONS: { type: string; icon: string; cb: CallableFunction }[];
 	TASK: Task;
+	onEdit: CallableFunction;
+	onArchive: CallableFunction;
+	onDelete: CallableFunction;
 
-	constructor(task: Task) {
+	constructor(task: Task, onEdit: CallableFunction, onArchive: CallableFunction, onDelete: CallableFunction) {
 		super();
 
 		this.TASK = task;
@@ -17,10 +20,14 @@ export class Tools extends Components implements ITools {
 			id: "task-actions",
 		});
 
+		this.onEdit = onEdit;
+		this.onArchive = onEdit;
+		this.onDelete = onEdit;
+
 		this.ACTIONS = [
-			{ type: "edit", icon: "<i class='ri-pencil-line'></i>", cb: this.edit },
-			{ type: "archive", icon: "<i class='ri-archive-line'></i>", cb: this.archive },
-			{ type: "delete", icon: "<i class='ri-delete-bin-6-line'></i>", cb: this.delete },
+			{ type: "edit", icon: "<i class='ri-pencil-line'></i>", cb: this.onEdit },
+			{ type: "archive", icon: "<i class='ri-archive-line'></i>", cb: this.onArchive },
+			{ type: "delete", icon: "<i class='ri-delete-bin-6-line'></i>", cb: this.onDelete },
 		];
 
 		this.definedElement();
@@ -49,16 +56,7 @@ export class Tools extends Components implements ITools {
 	}
 
 	hide() {}
-	delete() {
-		console.log("delete");
-		console.log(this.TASK);
-	}
-	archive() {
-		console.log("archive");
-	}
-	edit() {
-		console.log("edit");
-	}
+
 	show() {}
 
 	// createElement() {

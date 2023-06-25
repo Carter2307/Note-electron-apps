@@ -6,16 +6,26 @@ import { Select } from "../../atoms/form/select";
 export default class DocumentModal extends Components {
 	element: HTMLDivElement;
 	documentDatas: DocumentDataType;
+	form: HTMLFormElement;
+	modalDatas: any;
+	cb: CallableFunction;
 
-	constructor(documentDatas: DocumentDataType) {
+	constructor(documentDatas: DocumentDataType, cb: CallableFunction) {
 		super();
 		this.documentDatas = documentDatas;
+		this.modalDatas = {};
+		this.cb = cb;
+
+		this.form = this.createElement<HTMLFormElement>("form", {
+			className: "modal-form",
+			onsubmit: this.onSubmit.bind(this),
+		});
 		this.element = this.createModalElement();
 	}
 
 	private createModalElement() {
 		const element = this.createElement<HTMLDivElement>("div", {
-			className: "modal",
+			className: "modal modal-popup",
 		});
 
 		return element;
@@ -34,12 +44,13 @@ export default class DocumentModal extends Components {
 			className: "modal-actions",
 		});
 
-		const cancleButton = new Button("Cancel", "secondary", "sm", this.onCancel);
-		const okButton = new Button("Add Task", "primary", "sm", this.onCancel);
+		const cancleButton = new Button("Cancel", "secondary", "sm", "button", this.onCancel.bind(this));
+		const okButton = new Button("Add Task", "primary", "sm", "submit");
 
 		this.appendChild(action, [cancleButton.element, okButton.element]);
 		this.appendChild(container, [block1, block2, badgeBlock]);
-		this.appendChild(this.element, [container]);
+		this.appendChild(this.form, [container, action]);
+		this.appendChild(this.element, [this.form]);
 		return this;
 	}
 
@@ -86,14 +97,19 @@ export default class DocumentModal extends Components {
 		return block;
 	}
 
+	private createModalAction() {}
+
 	private createModalTagGroup() {}
 
 	private onBadgeSelected() {
 		console.log("on select changed");
 	}
 
+	show() {}
+
 	open() {
-		console.log("open modal");
+		const root = document.querySelector(".task-document-container");
+		root?.appendChild(this.element);
 	}
 
 	close() {
@@ -104,5 +120,18 @@ export default class DocumentModal extends Components {
 		this.close();
 	}
 
-	onValidate() {}
+	getModalDatas() {
+		return this.modalDatas;
+	}
+
+	onSubmit(e: Event) {
+		e.preventDefault();
+		this.modalDatas = {
+			title: "",
+			description: "",
+			badges: ["UI design"],
+		};
+
+		this.cb(this.modalDatas);
+	}
 }

@@ -5,13 +5,11 @@ import DocumentModal from "./DocumentModal";
 export default class TaskDocumentActions extends DocumentHandler {
 	element: HTMLDivElement;
 	document: TaskDocument;
-	modal: DocumentModal;
 
 	constructor(document: TaskDocument) {
 		super();
 		this.document = document;
 		this.element = this.createActionElement();
-		this.modal = new DocumentModal(this.document);
 	}
 
 	createActionElement() {
@@ -27,10 +25,11 @@ export default class TaskDocumentActions extends DocumentHandler {
 		return element;
 	}
 
-	private addTaskToDocument() {
-		//open modal for adding task
-		console.log("open modal for adding task");
-		this.modal.createAddTaskToDocumentModal().open();
+	private addTaskToDocument(e: Event) {
+		const modal = new DocumentModal(this.document, (data: {}) => {
+			console.log(data);
+		});
+		modal.createAddTaskToDocumentModal().open();
 	}
 
 	private openDocumentSetting() {
